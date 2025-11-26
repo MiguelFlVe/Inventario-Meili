@@ -10,4 +10,5 @@ Entre las ediciones posibles, se encuentran:
 5. Añadir compra de productos ya existentes
 6. Añadir venta de productos ya existentes
 7. Añadir elementos de productos ya existentes que se han dañado
+
 También, se tiene una funcionalidad básica de interfaz de usuario (Se planea expandir esta funcionalidad a futuro, con uso de elementos html, javascript y demás).
