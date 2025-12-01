@@ -14,6 +14,8 @@
 header{
   background-color: #4b0317;
   color: #f2b9cd;
+  margin: 10px;
+  padding: 10px;
 }
 
 body{
@@ -24,12 +26,16 @@ body{
 footer{
   background-color: #99062f;
   color: #f2b9cd;
-  display: flex;
+  margin: 10px;
+  padding: 10px;
 }
 
 footer a{
   background-color: #99062f;
   color: #f2b9cd;
+  display: flex;
+  text-align: center;
+  justify-content: center;
 }
 
 #maintitle{
@@ -42,4 +48,19 @@ footer a{
   display: flex;
   text-align: center;
   justify-content: center;
+}
+
+table{
+  margin: auto;
+  text-align: center;
+  width: fit-content;
+  justify-content: center;
+}
+
+thead{
+  margin: 10px;
+}
+
+tbody{
+  margin: 10px;
 }
