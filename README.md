@@ -12,3 +12,5 @@ Entre las ediciones posibles, se encuentran:
 7. Añadir elementos de productos ya existentes que se han dañado
 
 También, se tiene una funcionalidad básica de interfaz de usuario (Se planea expandir esta funcionalidad a futuro, con uso de elementos html, javascript y demás).
+
+(La presencia de un segundo colaborador fue un error al momento de subir cambios. No estuve pendiente de las credenciales y los datos del computador, y subí unos cambios con los datos de otra persona.)
