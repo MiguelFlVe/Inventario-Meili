@@ -55,14 +55,27 @@ table{
   text-align: center;
   width: fit-content;
   justify-content: center;
+  border: 5px solid #4b0317;
 }
 
 thead{
   margin: 10px;
+  border: 5px solid #4b0317;
+}
+
+th{
+  margin: 10px;
+  border: 2px solid #4b0317;
+}
+
+td{
+  margin: 10px;
+  border: 2px solid #4b0317;
 }
 
 tbody{
   margin: 10px;
+  border: 5px solid #4b0317;
 }
 
 div{

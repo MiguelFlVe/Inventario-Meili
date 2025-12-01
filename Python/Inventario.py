@@ -2,6 +2,9 @@
 import pandas as pd
 import openpyxl
 
+pd.set_option('display.max_columns', None)
+pd.set_option('display.max_rows', None)
+
 # Descargar el archivo de inventario, o crear uno nuevo
 def gen_file():
   """
