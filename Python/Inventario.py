@@ -21,7 +21,7 @@ def gen_file():
 
     #Se busca el archivo y se intenta acceder
     try:
-      df = pd.read_excel(f"{file_path}.xlsx")
+      df = pd.read_excel(f"../Datos/{file_path}.xlsx")
       print("Archivo encontrado.")
     
     #En caso de no ser posible, se avisa al usuario
@@ -65,13 +65,13 @@ def gen_file():
     df = pd.DataFrame(df, columns=cols)
 
     #Guardar el documento
-    df.to_excel(f"{file_path}.xlsx", index=False, header=False)
+    df.to_excel(f"../Datos/{file_path}.xlsx", index=False, header=False)
 
   #En caso de que el dato ingresado no corresponda con las opciones
   else:
     print("Opción no reconocida.")
 
-  return df, f"{file_path}.xlsx"
+  return df, f"../Datos/{file_path}.xlsx"
 
 df, file_path = gen_file()
 

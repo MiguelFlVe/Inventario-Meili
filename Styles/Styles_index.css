@@ -1,3 +1,45 @@
+@font-face {
+  font-family: 'Genica';
+  src: url('genica-pro/GenicaPro-One.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 *{
-  background-color: rosybrown;
+  margin: 0px;
+  padding: 0px;
+  font-family: Genica;
+}
+
+header{
+  background-color: #4b0317;
+  color: #f2b9cd;
+}
+
+body{
+  background-color: #f2b9cd;
+  color: #4b0317;
+}
+
+footer{
+  background-color: #99062f;
+  color: #f2b9cd;
+  display: flex;
+}
+
+footer a{
+  background-color: #99062f;
+  color: #f2b9cd;
+}
+
+#maintitle{
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+#idtitle{
+  display: flex;
+  text-align: center;
+  justify-content: center;
 }
