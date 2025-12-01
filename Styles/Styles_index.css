@@ -64,3 +64,10 @@ thead{
 tbody{
   margin: 10px;
 }
+
+div{
+  margin: auto;
+  padding: auto;
+  text-align: center;
+  justify-content: center;
+}
