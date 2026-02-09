@@ -1,8 +1,9 @@
 ## Importación de librerías
 # pandas permite la manipulación y tratamiento de tablas de datos
 import pandas as pd
-# openpyxl permite el uso de documentos de excel
-import openpyxl
+# tkinter permite la creación de una interfaz gráfica
+import tkinter as tk
+from tkinter import ttk
 
 ## Determinación del tamaño de las tablas de datos, al momento de mostrarlas en pantalla
 # Se elimina el límite máximo de la cantidad de columnas mostradas en pantalla
@@ -25,6 +26,20 @@ class Inventario:
       print("No se encontró el archivo. Se creará uno nuevo.")
       self.df = pd.DataFrame(columns=["Código", "Nombre", "Compra", "Venta", "Dañado", "Stock"])
 
+    # Generación de una ventana desplegable
+    self.root = tk.Tk()
+    self.root.title("Inventario Meili")
+
+    # Generación de la tabla de datos al interior de la ventana previamente desplegada. Se define el nombre del encabezado de las columnas, para que coincidan con los de la tabla
+    self.tree = ttk.Treeview(self.root, columns=list(self.df.columns), show="headings")
+    for col in self.df.columns:
+        self.tree.heading(col, text=col)
+        self.tree.column(col, width=100)
+    self.tree.pack(expand=True, fill="both")
+
+    # Mostrar los datos iniciales
+    self.actualizar_tabla()
+
   # Cálculo automático de la cantidad de productos en stock, a partir de los datos ya dispuestos en el DataFrame
   def refresh(self):
     self.df["Stock"] = self.df["Compra"] - self.df["Venta"] - self.df["Dañado"]
@@ -33,6 +48,15 @@ class Inventario:
   def save(self):
     self.df.to_excel(self.file_path, index=False)
     print("Cambios guardados.")
+
+  # Actualización de la tabla en tiempo real
+  def actualizar_tabla(self):
+    # Eliminación de los elementos en cada punto de la tabla
+    for item in self.tree.get_children():
+      self.tree.delete(item)
+    # Insertar datos actualizados
+    for _, row in self.df.iterrows():
+      self.tree.insert("", tk.END, values=list(row))
 
   # Ingreso de un producto nuevo al DataFrame. Se solicita el código de identificación del mismo, así como su nombre y las cantidades que se han comprado, vendido y dañado. Se ingresan los datos al DataFrame, y se calcula el stock del producto
   def add_product(self, code, name, buy, sell, damage):
@@ -71,6 +95,10 @@ class Inventario:
     self.refresh()
     print("Daño registrado.")
 
+  
+  def run(self):
+    self.root.mainloop()
+
   # Muestra la tabla
   def mostrar(self):
     print(self.df)
@@ -88,8 +116,7 @@ class Inventario:
       print("4. Registrar venta")
       print("5. Registrar daño")
       print("6. Guardar cambios")
-      print("7. Mostrar inventario")
-      print("8. Salir")
+      print("7. Salir")
       choice = input("Seleccione una opción (1-7): ")
 
       # Ejecución del método para nuevo producto
@@ -130,6 +157,7 @@ class Inventario:
         print("Opción no reconocida.")
 
 # Ejecución
-file_path = "../Data/Inv.xlsx"
+file_path = "../Data/Inventario.xlsx"
 inv = Inventario(file_path)
 inv.menu()
+#inv.run()
