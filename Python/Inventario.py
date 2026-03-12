@@ -29,13 +29,29 @@ class Inventario:
     # Generación de una ventana desplegable
     self.root = tk.Tk()
     self.root.title("Inventario Meili")
+    self.root.iconbitmap("Pictures\\Logo.png")
+
+    # estilo para que la Treeview muestre líneas divisorias (grid)
+    style = ttk.Style(self.root)
+    # usar un tema que soporte bordes; clam suele dar mejores resultados
+    style.theme_use("clam")
+    # configurar bordes y colores de las celdas y encabezados
+    style.configure("Treeview", rowheight=25, fieldbackground="white", bordercolor="black", borderwidth=1, relief="solid")
+    style.configure("Treeview.Heading", background="lightgrey", borderwidth=1, relief="solid")
+    # la distribución básica de la Treeview
+    style.layout("Treeview", [("Treeview.treearea", {"sticky": "nswe"})])
 
     # Generación de la tabla de datos al interior de la ventana previamente desplegada. Se define el nombre del encabezado de las columnas, para que coincidan con los de la tabla
-    self.tree = ttk.Treeview(self.root, columns=list(self.df.columns), show="headings")
+    self.tree = ttk.Treeview(self.root, columns=list(self.df.columns), show="headings", style="Treeview")
     for col in self.df.columns:
         self.tree.heading(col, text=col)
         self.tree.column(col, width=100)
+        
     self.tree.pack(expand=True, fill="both")
+
+    # configurar colores alternos para filas
+    self.tree.tag_configure('oddrow', background='#4b0317', foreground='#f2b9cd')
+    self.tree.tag_configure('evenrow', background='#99062f', foreground='#f2b9cd')
 
     # Mostrar los datos iniciales
     self.actualizar_tabla()
@@ -48,21 +64,21 @@ class Inventario:
     self.code_entry = tk.Entry(self.frame)
     self.code_entry.grid(row=0, column=1)
 
-    tk.Label(self.frame, text="Nombre:").grid(row=1, column=0)
+    tk.Label(self.frame, text="Nombre:").grid(row=0, column=2)
     self.name_entry = tk.Entry(self.frame)
-    self.name_entry.grid(row=1, column=1)
+    self.name_entry.grid(row=0, column=3)
 
-    tk.Label(self.frame, text="Compra:").grid(row=2, column=0)
+    tk.Label(self.frame, text="Compra:").grid(row=1, column=0)
     self.buy_entry = tk.Entry(self.frame)
-    self.buy_entry.grid(row=2, column=1)
+    self.buy_entry.grid(row=1, column=1)
 
-    tk.Label(self.frame, text="Venta:").grid(row=3, column=0)
+    tk.Label(self.frame, text="Venta:").grid(row=1, column=2)
     self.sell_entry = tk.Entry(self.frame)
-    self.sell_entry.grid(row=3, column=1)
+    self.sell_entry.grid(row=1, column=3)
 
-    tk.Label(self.frame, text="Dañado:").grid(row=4, column=0)
+    tk.Label(self.frame, text="Dañado:").grid(row=1, column=4)
     self.damage_entry = tk.Entry(self.frame)
-    self.damage_entry.grid(row=4, column=1)
+    self.damage_entry.grid(row=1, column=5)
 
     # Botón para agregar producto
     self.add_button = tk.Button(self.frame, text="Agregar Producto", command=lambda: self.add_product(
@@ -104,9 +120,10 @@ class Inventario:
     for item in self.tree.get_children():
       self.tree.delete(item)
     # Insertar datos actualizados
-    for _, row in self.df.iterrows():
-      self.tree.insert("", tk.END, values=list(row))
-
+    for idx, row in enumerate(self.df.itertuples(index=False)):
+      tag = 'evenrow' if idx % 2 == 0 else 'oddrow'
+      self.tree.insert("", tk.END, values=list(row), tags=(tag,))
+  
   # Ingreso de un producto nuevo al DataFrame. Se solicita el código de identificación del mismo, así como su nombre y las cantidades que se han comprado, vendido y dañado. Se ingresan los datos al DataFrame, y se calcula el stock del producto
   def add_product(self, code, name, buy, sell, damage):
     code = code.upper()
